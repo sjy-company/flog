@@ -21,7 +21,7 @@ import lombok.Getter;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
-    private boolean isDeleted = false;
+    private Boolean isDeleted = false;
 
     @CreatedBy
     @ManyToOne
