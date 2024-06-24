@@ -9,17 +9,19 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.flog.domain.user.entity.User;
-import com.flog.domain.user.repository.UserRepository;
+import com.flog.domain.user.service.UserService;
 import com.flog.security.PrincipalDetail;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class AuditorAwareConfig implements AuditorAware<User> {
-	private final UserRepository userRepository;
+	private final UserService userService;
 
     @Override
+    @NonNull
     public Optional<User> getCurrentAuditor() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
@@ -32,8 +34,9 @@ public class AuditorAwareConfig implements AuditorAware<User> {
 
         if (principal instanceof PrincipalDetail principalDetail) {
 			String username = principalDetail.getUsername();
+            User user = userService.findByUsername(username);
 
-            return userRepository.findByUsername(username);
+            return Optional.of(user);
         } else {
             return Optional.empty();
         }
