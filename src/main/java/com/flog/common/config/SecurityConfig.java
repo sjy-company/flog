@@ -17,20 +17,20 @@ public class SecurityConfig {
 		http.cors(AbstractHttpConfigurer::disable);
 		http.csrf(AbstractHttpConfigurer::disable);
 
-		// http.formLogin(AbstractHttpConfigurer::disable);
-		http.formLogin(AbstractHttpConfigurer ->
-			AbstractHttpConfigurer
-				.usernameParameter("username")
-				.passwordParameter("password")
-				.loginProcessingUrl("/login")
-		);
+		http.formLogin(AbstractHttpConfigurer::disable);
+		// http.formLogin(AbstractHttpConfigurer ->
+		// 	AbstractHttpConfigurer
+		// 		.usernameParameter("username")
+		// 		.passwordParameter("password")
+		// 		.loginProcessingUrl("/login")
+		// );
 
 		http.authorizeHttpRequests(request ->
 			request
 				.requestMatchers(PathRequest.toH2Console()).permitAll() // H2 Console 허용
-				// .anyRequest().permitAll()
-				.requestMatchers("/save").permitAll()
-				.anyRequest().authenticated()
+				// .requestMatchers("/save").permitAll()
+				// .anyRequest().authenticated()
+				.anyRequest().permitAll() // 모든 요청 허용
 		);
 
 		http.headers(headers -> headers.frameOptions(FrameOptionsConfig::sameOrigin)); // H2 Console 사용을 위해
