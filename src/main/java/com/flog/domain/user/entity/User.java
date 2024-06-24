@@ -2,6 +2,7 @@ package com.flog.domain.user.entity;
 
 import com.flog.common.entity.BaseEntity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,8 +24,10 @@ public class User extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 
+	@Column(nullable = false, unique = true)
 	String username;
 
+	@Column(nullable = false)
 	String password;
 
 	String name;
