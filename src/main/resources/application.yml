@@ -3,3 +3,8 @@ spring:
     name: flog
   profiles:
     active: h2
+
+jwt:
+  secret: goquddmsxodjsksmsrjtdldkslfkaksemfdjwlsmsrjtdlek
+  accessTokenExpiration: 3600000
+  refreshTokenExpiration: 1209600000
